@@ -6,7 +6,7 @@
 ### - A single server setup (fg1-1)
 
 Everything is running on one server( web app, database, cache, etc )
-![This is an alt text.](image_dave/fg1-1.jpg)
+![This is an alt text.](image/fg1-1.jpg)
 
 
 ### - Request Flow & Traffic source
@@ -18,7 +18,7 @@ Everything is running on one server( web app, database, cache, etc )
 3. IP가 주어지면, HTTP(Hypertext Transfer Protocol)의 Request가 directly your web server로 전달된다.
 4. The web server가 렌더링을 위한 HTML page or Json response을 Return한다. 
 ```
-![fg1-2](image_dave/fg1-2.jpg)
+![fg1-2](image/fg1-2.jpg)
 
 #### *Traffic Source*
 The traffic to your webserver는 두개의 sources(web application and mobile application)으로 온다.
@@ -31,7 +31,7 @@ The traffic to your webserver는 두개의 sources(web application and mobile ap
  - JSON(JavaScript Object Notation)이 가장 널리쓰이는 API response format to transfer data인데 이는 simplicity 때문이다. 
 ```
 ###### JSON format 예시
- ![fg1-2.1](image_dave/fg1-2.1.jpg)
+ ![fg1-2.1](image/fg1-2.1.jpg)
 
 ## (2) Database (multiple server case)
 
@@ -39,7 +39,7 @@ Say multiple servers are needed with the growth of the user base now.
 
 Separating web/mobile traffic (web tier) and database (data tier)을 이용한 독립적 확장
 
-![fg1-3](image_dave/fg1-3.jpg)
+![fg1-3](image/fg1-3.jpg)
 
 Which databases to use(Relational database vs Non-relational database)?
 
@@ -99,7 +99,7 @@ To address this issue? Answer: **Load balancer.**
 ## (4) Load balancer - Web tier
 : To distribute incoming traffic among web servers
 
-![fg1-4](image_dave/fg1-4.jpg)
+![fg1-4](image/fg1-4.jpg)
 
 ```
 the public IP(from user) -> Load balancer (Web server is unreachable directly by users)
@@ -137,7 +137,7 @@ Read > Write (A higher ratio of Read operations to Write operations)
 Therefore,
 Slave DB > Master DB ( the number of Slave DB is larger than the number of Master DB )
 ```
-![fg1-5](image_dave/fg1-5.jpg)
+![fg1-5](image/fg1-5.jpg)
 
 #### *Advantages of database replication:*
 ```
@@ -183,7 +183,7 @@ Although some other replication methods like multi-masters and circular replicat
 ### Load balancer(Web tier) + Database replication(data tier, DB복제)
 두개의 조합(Load balancer(Web tier) + Database replication) 
 
-![fg1-6](image_dave/fg1-6.jpg)
+![fg1-6](image/fg1-6.jpg)
 ```
 • A user gets the IP address of the load balancer from DNS.
 • A user connects the load balancer with this IP address.
@@ -214,7 +214,7 @@ The cache tier is a temporary data store layer, much faster than the database.
 - Ability to scale the cache tier independently
 ```
 
-![fg1-7](image_dave/fg1-7.jpg)
+![fg1-7](image/fg1-7.jpg)
 ```
 Read-through cache Strategy
 (1) Receiving a request
@@ -227,7 +227,7 @@ Other caching Strategies
 ```
 A typical Memcached APIs
 Memcached: Unlike databases that store data on disk or SSDs, Memcached keeps its data in memory
-![fg1-7-1](image_dave/fg1-7-1.jpg)
+![fg1-7-1](image/fg1-7-1.jpg)
 
 ### Considerations for using cache
 ```
@@ -256,7 +256,7 @@ Memcached: Unlike databases that store data on disk or SSDs, Memcached keeps its
    - Approach 2:  overprovision the required memory by certain percentages.
   This provides a buffer as the memory usage increases.
 ```
-![fg1-8](image_dave/fg1-8.jpg)
+![fg1-8](image/fg1-8.jpg)
 ```
   • Eviction Policy:
     Once the cache is full, any requests to add items to the cache -> existing items get removed(called cache eviction)
@@ -283,7 +283,7 @@ Purpose: To improve the load/response time,
 ```
 
 Figure 1-9 is a great example that shows how CDN improves load time.
-![fg1-9](image_dave/fg1-9.jpg)
+![fg1-9](image/fg1-9.jpg)
 
 ```
 1. User A tries to get image.png by using an image URL. The URL’s domain is provided by the CDN provider.
@@ -320,7 +320,7 @@ Figure 1-9 is a great example that shows how CDN improves load time.
                In short, version number 2 is added to the query string: image.png?v=2
 ```
 Figure 1-11 shows the design after the CDN and cache are added.
-![fg1-11](image_dave/fg1-11.jpg)
+![fg1-11](image/fg1-11.jpg)
 
 
 ```
@@ -346,7 +346,7 @@ Stateless server: keeps no state information.
 ```
 
 ### Stateful Architecture
-![fg1-12](image_dave/fg1-12.jpg)
+![fg1-12](image/fg1-12.jpg)
 ```
 (Figure 1-12)
  User A’s session data and profile image are stored in Server 1.
@@ -364,7 +364,7 @@ Stateless server: keeps no state information.
 ### Stateless Architecture
 > The point is that 공유데이터저장소(a shared data store)에 state(user session)정보를 보관 및 공유한다.
 
-![fg1-13](image_dave/fg1-13.jpg)
+![fg1-13](image/fg1-13.jpg)
 ```
 (Figure 1-13)
                           route                       fetched
@@ -377,7 +377,7 @@ A stateless system is simpler, more robust, and scalable.
 ```
 
 그래서 stateless server achitecture를 what we've done에 붙이면, 아래 다이어그램과 같다.
-![fg1-14](image_dave/fg1-14.jpg)
+![fg1-14](image/fg1-14.jpg)
 ```
 (Figure 1-14)
 we move the session data out of the web tier and store them in the persistent data store.
@@ -397,7 +397,7 @@ To improve availability and provide a better user experience,
 
 
 ## (9) Data centers
-![fg1-15](image_dave/fg1-15.jpg)
+![fg1-15](image/fg1-15.jpg)
 ```
 (Figure 1-15) - An example setup with two data centers
 
@@ -407,7 +407,7 @@ with a split traffic of x% in US-East and (100 – x)% in US-West.
 geoDNS is a DNS service that allows domain names to be resolved to IP addresses based on the location of a user.
 ```
 
-![fg1-16](image_dave/fg1-16.jpg)
+![fg1-16](image/fg1-16.jpg)
 
 #### Benefits for Multi-data center setup with geoDNS-routing(지리적 라우팅)
 ```
@@ -452,7 +452,7 @@ Basic Architecture
  - Other services or servers(called consumers/subscribers): connect to the queue -> perform actions defined by the messages. 
 The model is shown in Figure 1-17.
 ```
-![fg1-17](image_dave/fg1-17.jpg)
+![fg1-17](image/fg1-17.jpg)
 
 #### Benefits for Message queue
 ```
@@ -472,7 +472,7 @@ With the message queue,
    - When the size of the queue becomes large, more workers are added to reduce the processing time. 
      (However, if the queue is empty most of the time, the number of workers can be reduced)
 ```
-![fg1-18](image_dave/fg1-18.jpg)
+![fg1-18](image/fg1-18.jpg)
 
 
 
@@ -506,7 +506,7 @@ Due to the space constraint, only one data center is shown in the figure.
  1. A message queue - Loosely coupled system and failure-resilient.
  2. Logging, monitoring, metrics, and automation tools are included.
 ```
-![fg1-19](image_dave/fg1-19.jpg)
+![fg1-19](image/fg1-19.jpg)
 
 As the data grows every day, your database gets more overloaded. It is time to scale the *Data Tier*.
 
@@ -529,7 +529,7 @@ As the data grows every day, your database gets more overloaded. It is time to s
      • Greater risk of 'single point of failure'.
      • The overall cost of vertical scaling is high. Powerful servers are much more expensive.
 ```
-![fg1-20](image_dave/fg1-20.jpg)
+![fg1-20](image/fg1-20.jpg)
 ```
 - Horizontal scaling (sharding)
  : adding more servers.
@@ -549,11 +549,11 @@ As the data grows every day, your database gets more overloaded. It is time to s
     If the result equals to 1, shard 1 is used. 
     The same logic applies to other shards.
 ```
-![fg1-21](image_dave/fg1-21.jpg)
+![fg1-21](image/fg1-21.jpg)
 
 Figure 1-22 - user table in sharded databases.
 
-![fg1-22](image_dave/fg1-22.jpg)
+![fg1-22](image/fg1-22.jpg)
 
 #### *Considerations of using sharded databases* 
 ```
@@ -594,7 +594,7 @@ Fg 1-23:
 1. Added sharded databases to support rapidly increasing data traffic
 2. some of the non-relational functionalities are moved to a NoSQL data store to reduce the database load
 ```
-![fg1-23](image_dave/fg1-23.jpg)
+![fg1-23](image/fg1-23.jpg)
 
 ### Millions of users and beyond
 'Chapter 1. Scale From zero to Milions of Users' provides a good foundation to tackle new challenges. 
